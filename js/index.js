@@ -13,12 +13,16 @@ $(function() {
   $form.submit(function() {
     var uml     = editor.getValue()
     var encoded = compress(uml)
+    var img_url = 'http://www.plantuml.com/plantuml/svg/' + encoded
 
     // Save the UML to location hash.
     location.hash = encoded
 
     // Update the preveiw.
-    $("#canvas").attr("src", "http://www.plantuml.com/plantuml/svg/"+encoded)
+    $("#canvas").attr("src", img_url)
+
+    // Update markdown-code.
+    $('#md').html('[![Alt text](' + img_url + ')](' + location + ')')
 
     return false
   })
