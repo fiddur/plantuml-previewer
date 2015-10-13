@@ -1,20 +1,18 @@
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script type="text/javascript" src="js/lib/jquery_plantuml/rawdeflate.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/initialize.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/lib/jquery_plantuml/jquery_plantuml.js" charset="utf-8"></script>
-    <script type="text/javascript" src="js/finalize.js" charset="utf-8"></script>
-
+    <script type="text/javascript" src="js/lib/js-deflate/rawdeflate.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/lib/js-deflate/rawinflate.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/lib/jquery_plantuml.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.9/ace.js"></script>
-    <script type="text/javascript" src="js/lib/ace/src-min/mode-diagram.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/lib/ace/src-min/mode-diagram.js" charset="utf-8">
+    </script>
     <script type="text/javascript" src="js/index.js" charset="utf-8"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
   </head>
   <body>
-
     <form id="previewForm">
       <button id="preview" type="submit">preview &amp; save (Shift+Enter)</button>
       <select id="mode">
@@ -22,17 +20,10 @@
 	<option value="ace/keyboard/emacs">Emacs</option>
 	<option value="ace/keyboard/vim">Vim</option>
       </select>
-    <pre id="editor">
-Bob->Alice : foo
-Bob<--Alice : foo
-</pre>
+      <pre id="editor"></pre>
     </form>
-    
-    <img id="canvas" uml="
-	      Bob->Alice : foo
-	      Bob<--Alice : foo
-	      ">
 
+    <img id="canvas"
+         src="http://www.plantuml.com/plantuml/svg/SyfFqhLppCbCJbMmKaZBp-Tooa-oqTL55W40" />
   </body>
-
-</html> 
+</html>

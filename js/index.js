@@ -1,65 +1,62 @@
 $(function() {
-  var $mode = $("#mode");
-  
-  var ls = window.localStorage;
+  var $mode = $("#mode")
 
-  var uml = ls && ls.getItem("uml");
-  if (uml) {
-    $("#editor").html(uml);
-  }
-  
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/diagram");
+  var ls = window.localStorage
 
-  var $form = $("#previewForm");
+  var editor = ace.edit("editor")
+  editor.setTheme("ace/theme/monokai")
+  editor.getSession().setMode("ace/mode/diagram")
 
-  plantumlPreviewer.finalize();
+  var $form = $("#previewForm")
+  $(function() {$('#editor').focus()})
 
   $form.submit(function() {
-    var uml = editor.getValue();
+    var uml     = editor.getValue()
+    var encoded = compress(uml)
 
-    ls && ls.setItem("uml", uml);
-    
-    $("#canvas").attr({
-      uml: uml,
-      src: null
-    });
+    // Save the UML to location hash.
+    location.hash = encoded
 
-    plantumlPreviewer.initialize();
-    plantuml_runonce();
-    plantumlPreviewer.finalize();
-    
-    return false;
-  });
+    // Update the preveiw.
+    $("#canvas").attr("src", "http://www.plantuml.com/plantuml/svg/"+encoded)
 
+    return false
+  })
+
+  if (location.hash) {
+    // Load UML from location hash.
+    editor.setValue(decode64(location.hash.substr(1)))
+
+    // Trigger redraw on preview.
+    $form.submit()
+  }
+
+  // ACE mode 'vim' or 'emacs'.
   $mode.change(function() {
-    var mode = $(this).val();
-    
-    addSubmitKey();
+    var mode = $(this).val()
 
-    ls && ls.setItem("mode", mode);
-    editor.setKeyboardHandler(mode);
-  });
+    addSubmitKey()
 
-  var mode = ls && ls.getItem("mode");
+    ls && ls.setItem("mode", mode)
+    editor.setKeyboardHandler(mode)
+  })
+
+  var mode = ls && ls.getItem("mode")
   if (mode) {
-    $mode.val(mode);
-    $mode.change();
+    $mode.val(mode)
+    $mode.change()
   }
 
   function addSubmitKey() {
     editor.commands.addCommand({
-    name: 'submit',
-    bindKey: {win: 'Shift-Enter',  mac: 'Shift-Enter'},
-    exec: function(editor) {
-      $form.submit();
-    },
-    readOnly: false
-    });
+      name: 'submit',
+      bindKey: {win: 'Shift-Enter',  mac: 'Shift-Enter'},
+      exec: function(editor) {
+        $form.submit()
+      },
+      readOnly: false
+    })
   }
 
-  addSubmitKey();
-  
-});
-
+  addSubmitKey()
+})
