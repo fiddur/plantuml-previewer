@@ -23,13 +23,14 @@ $(function() {
     return false
   })
 
-  if (location.hash) {
-    // Load UML from location hash.
-    editor.setValue(decode64(location.hash.substr(1)))
+  // Set default UML example if none given.
+  if (!location.hash) {location.hash = 'SyfFqhLppCbCJbMmKaZBp-Tooa-oqTL55W40'}
 
-    // Trigger redraw on preview.
-    $form.submit()
-  }
+  // Load UML from location hash.
+  editor.setValue(decode64(location.hash.substr(1)))
+
+  // Trigger redraw on preview.
+  $form.submit()
 
   // ACE mode 'vim' or 'emacs'.
   $mode.change(function() {
